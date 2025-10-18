@@ -1,0 +1,62 @@
+<!-- Título de la empresa -->
+<h4 class="text-center text-white mb-4">TELMEX</h4>
+
+<!-- Menú de navegación -->
+<a href="../dashboard.html" class="mb-1"><i class="bi bi-house-door-fill me-2"></i>Inicio</a>
+<a href="/elementos/clientes.html" class="mb-1"><i class="bi bi-people-fill me-2"></i>Clientes</a>
+<a href="casos.html" class="mb-1"><i class="bi bi-file-text-fill me-2"></i>Casos</a>
+<a href="reportes.html" class="mb-1"><i class="bi bi-bar-chart-fill me-2"></i>Reportes</a>
+<a href="configuracion.html" class="mb-1"><i class="bi bi-gear-fill me-2"></i>Configuración</a>
+
+<hr class="text-white">
+
+<!-- Toggle Modo Oscuro y Logout -->
+<script>
+  const toggleDark = document.getElementById('toggleDark');
+  const iconDayNight = document.getElementById('iconDayNight');
+
+  function updateIcon() {
+    if(document.body.classList.contains('dark-mode')){
+      iconDayNight.className = 'bi bi-moon-fill me-2';
+    } else {
+      iconDayNight.className = 'bi bi-sun-fill me-2';
+    }
+  }
+
+  updateIcon();
+
+  if(toggleDark){
+    toggleDark.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      updateIcon();
+      localStorage.setItem('modoOscuro', document.body.classList.contains('dark-mode'));
+    });
+  }
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('modoOscuro','false');
+      window.location.href = '../index.html';
+    });
+  }
+
+  // ---------------- Marcar link activo según la URL ----------------
+  function marcarLinkActivo() {
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
+    const paginaActual = window.location.pathname.split('/').pop(); // obtiene el archivo actual
+
+    sidebarLinks.forEach(link => {
+      const href = link.getAttribute('href').split('/').pop();
+      if (href === paginaActual) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // Ejecutar después de que el sidebar esté cargado
+  setTimeout(marcarLinkActivo, 50);
+</script>

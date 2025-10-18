@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Configuración | Telmex</title>
+  <link href="../bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="configuracion">
+
+  <!-- 🔷 TOPBAR -->
+  <div id="topbarContainer"></div>
+
+  <!-- CONTENEDOR GENERAL -->
+  <div id="appContainer" class="container-fluid">
+    <div class="row">
+      <!-- SIDEBAR -->
+      <aside class="col-md-2 sidebar d-flex flex-column" id="menuLateral"></aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="col-md-10 p-4" id="mainContent">
+
+        <!-- 🟦 Encabezado -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="m-0">Configuración</h2>
+          <button class="btn btn-telmex">
+            <i class="bi bi-save me-2"></i>Guardar Cambios
+          </button>
+        </div>
+
+        <!-- 🔹 Card de Perfil -->
+        <div class="card p-3 mb-4">
+          <h5 class="mb-3">Perfil del Agente</h5>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="nombreAgente" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombreAgente" placeholder="Juan Pérez">
+            </div>
+            <div class="col-md-4">
+              <label for="correoAgente" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="correoAgente" placeholder="juan.perez@telmex.com">
+            </div>
+            <div class="col-md-4">
+              <label for="rolAgente" class="form-label">Rol</label>
+              <select id="rolAgente" class="form-select">
+                <option value="agente">Agente</option>
+                <option value="administrador">Administrador</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🔹 Card de Preferencias -->
+        <div class="card p-3 mb-4">
+          <h5 class="mb-3">Preferencias</h5>
+          <div class="form-check form-switch mb-2">
+            <input class="form-check-input" type="checkbox" id="notificaciones">
+            <label class="form-check-label" for="notificaciones">Recibir notificaciones</label>
+          </div>
+          <div class="mb-3">
+            <label for="idioma" class="form-label">Idioma</label>
+            <select id="idioma" class="form-select">
+              <option value="es">Español</option>
+              <option value="en">Inglés</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="tema" class="form-label">Tema</label>
+            <select id="tema" class="form-select">
+              <option value="claro">Claro</option>
+              <option value="oscuro">Oscuro</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 🔹 Card de Contraseña -->
+        <div class="card p-3 mb-4">
+          <h5 class="mb-3">Cambiar Contraseña</h5>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="contraseñaActual" class="form-label">Contraseña actual</label>
+              <input type="password" class="form-control" id="contraseñaActual" placeholder="********">
+            </div>
+            <div class="col-md-4">
+              <label for="nuevaContraseña" class="form-label">Nueva contraseña</label>
+              <input type="password" class="form-control" id="nuevaContraseña" placeholder="********">
+            </div>
+            <div class="col-md-4">
+              <label for="confirmarContraseña" class="form-label">Confirmar contraseña</label>
+              <input type="password" class="form-control" id="confirmarContraseña" placeholder="********">
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JS Bootstrap -->
+  <script src="../bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- 🔷 Cargar menú lateral -->
+  <script>
+    fetch('menu-lateral.html')
+      .then(resp => resp.text())
+      .then(data => {
+        document.getElementById('menuLateral').innerHTML = data;
+      })
+      .catch(err => console.error('Error cargando menú lateral:', err));
+  </script>
+
+  <!-- 🔷 Cargar topbar -->
+  <script>
+    fetch('topbar.html')
+      .then(resp => resp.text())
+      .then(data => {
+        document.getElementById('topbarContainer').innerHTML = data;
+        const topbarHeight = document.getElementById('mainNav').offsetHeight;
+        document.getElementById('appContainer').style.paddingTop = topbarHeight + 'px';
+      })
+      .catch(err => console.error('Error cargando topbar:', err));
+  </script>
+
+  <!-- JS global -->
+  <script src="../javascrip.js"></script>
+
+</body>
+</html>

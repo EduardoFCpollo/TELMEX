@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reportes | Telmex</title>
+  <link href="../bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="reportes">
+
+  <!-- 🔷 TOPBAR -->
+  <div id="topbarContainer"></div>
+
+  <!-- CONTENEDOR GENERAL -->
+  <div id="appContainer" class="container-fluid">
+    <div class="row">
+      <!-- SIDEBAR -->
+      <aside class="col-md-2 sidebar d-flex flex-column" id="menuLateral"></aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="col-md-10 p-4" id="mainContent">
+
+        <!-- 🟦 Encabezado -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="m-0">Gestión de Reportes</h2>
+          <button class="btn btn-telmex">
+            <i class="bi bi-file-earmark-text me-2"></i>Generar Reporte
+          </button>
+        </div>
+
+        <!-- 🟦 Barra de filtros y búsqueda -->
+        <div class="card p-3 mb-4">
+          <div class="row g-2 align-items-center">
+            <div class="col-md-4">
+              <input type="text" class="form-control" id="buscarInput" placeholder="Buscar por nombre de cliente...">
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-telmex w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltros" aria-controls="offcanvasFiltros">
+                <i class="bi bi-funnel-fill me-2"></i>Filtros
+              </button>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-secondary w-100">
+                <i class="bi bi-file-earmark-arrow-down me-2"></i>Exportar
+              </button>
+            </div>
+          </div>
+          <!-- Contenedor de filtros aplicados -->
+          <div class="mt-3" id="filtrosAplicados"></div>
+        </div>
+
+        <!-- 🔷 OFFCANVAS: Filtros -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFiltros" aria-labelledby="offcanvasFiltrosLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasFiltrosLabel">Filtros de Reportes</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div class="mb-3">
+              <label for="filtroMotivo" class="form-label">Selecciona un motivo</label>
+              <select id="filtroMotivo" class="form-select">
+                <option value="">-- Elegir motivo --</option>
+                <option value="mala calidad del servicio">Mala calidad del servicio</option>
+                <option value="económico">Económico</option>
+                <option value="competencia">Competencia</option>
+                <option value="defunción">Defunción</option>
+                <option value="queja no atendida">Queja no atendida</option>
+                <option value="cambio de domicilio">Cambio de domicilio</option>
+                <option value="cierre de negocio">Cierre de negocio</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="fechaInicio" class="form-label">Fecha inicio</label>
+              <input type="date" class="form-control" id="fechaInicio">
+            </div>
+            <div class="mb-3">
+              <label for="fechaFin" class="form-label">Fecha fin</label>
+              <input type="date" class="form-control" id="fechaFin">
+            </div>
+            <button id="aplicarFiltro" class="btn btn-telmex w-100">Aplicar filtro</button>
+          </div>
+        </div>
+
+        <!-- 🔹 Tabla de reportes -->
+        <div class="card p-3">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h5 class="mb-0">Lista de Reportes</h5>
+              <small class="text-muted">Monitorea los estados y motivos de riesgo de los clientes</small>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-middle" id="tablaReportes">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Cliente</th>
+                  <th>Motivo</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Agente</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>201</td>
+                  <td>Juan Pérez</td>
+                  <td>Mala calidad del servicio</td>
+                  <td>2025-10-16</td>
+                  <td><span class="badge bg-warning text-dark">En riesgo</span></td>
+                  <td>María Gómez</td>
+                  <td>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerReporte">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>202</td>
+                  <td>María López</td>
+                  <td>Competencia</td>
+                  <td>2025-10-15</td>
+                  <td><span class="badge bg-danger">En riesgo</span></td>
+                  <td>Carlos Ruiz</td>
+                  <td>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerReporte">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 🔷 Modal: Ver Reporte -->
+        <div class="modal fade" id="modalVerReporte" tabindex="-1" aria-labelledby="modalVerReporteLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header bg-telmex text-white">
+                <h5 class="modal-title" id="modalVerReporteLabel">Detalles del Reporte</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body">
+                <p><strong>Cliente:</strong> Juan Pérez</p>
+                <p><strong>Motivo:</strong> Mala calidad del servicio</p>
+                <p><strong>Descripción:</strong> Cliente en riesgo por baja de servicio</p>
+                <p><strong>Fecha:</strong> 2025-10-16</p>
+                <p><strong>Estado:</strong> En riesgo</p>
+                <p><strong>Agente:</strong> María Gómez</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JS Bootstrap -->
+  <script src="../bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- 🔷 Cargar menú lateral -->
+  <script>
+    fetch('menu-lateral.html')
+      .then(resp => resp.text())
+      .then(data => {
+        document.getElementById('menuLateral').innerHTML = data;
+      })
+      .catch(err => console.error('Error cargando menú lateral:', err));
+  </script>
+
+  <!-- 🔷 Cargar topbar -->
+  <script>
+    fetch('topbar.html')
+      .then(resp => resp.text())
+      .then(data => {
+        document.getElementById('topbarContainer').innerHTML = data;
+        const topbarHeight = document.getElementById('mainNav').offsetHeight;
+        document.getElementById('appContainer').style.paddingTop = topbarHeight + 'px';
+      })
+      .catch(err => console.error('Error cargando topbar:', err));
+  </script>
+
+  <!-- JS global -->
+  <script src="../javascrip.js"></script>
+
+</body>
+</html>

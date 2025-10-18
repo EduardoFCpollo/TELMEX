@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clientes | Telmex</title>
+  <link href="../bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="clientes">
+
+  <!-- 🔷 TOPBAR -->
+  <div id="topbarContainer"></div>
+
+  <!-- CONTENEDOR GENERAL -->
+  <div id="appContainer" class="container-fluid">
+    <div class="row">
+      <!-- SIDEBAR -->
+      <aside class="col-md-2 sidebar d-flex flex-column" id="menuLateral"></aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="col-md-10 p-4" id="mainContent">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="m-0">Gestión de Clientes</h2>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12">
+            <div class="card p-3 shadow-sm">
+              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                <div class="mb-2 mb-md-0">
+                  <h5 class="mb-0">Lista de Clientes</h5>
+                  <small class="text-muted">Consulta, edita o elimina registros</small>
+                </div>
+
+                <!-- 🔍 BUSCADOR DE CLIENTES -->
+                <div class="input-group w-auto mb-2 mb-md-0">
+                  <input type="text" class="form-control" id="buscarCliente" placeholder="Buscar por ID de cliente...">
+                  <button class="btn btn-outline-primary" type="button">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+
+                <button class="btn btn-telmex mb-2 mb-md-0">
+                  <i class="bi bi-person-plus me-2"></i>Agregar Cliente
+                </button>
+              </div>
+
+              <!-- TABLA -->
+              <div class="table-responsive">
+                <table class="table align-middle">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Teléfono</th>
+                      <th>Email</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>001</td>
+                      <td>Juan Pérez</td>
+                      <td>229-123-4567</td>
+                      <td>juanperez@example.com</td>
+                      <td><span class="badge bg-success">Activo</span></td>
+                      <td>
+                        <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>002</td>
+                      <td>María López</td>
+                      <td>229-765-4321</td>
+                      <td>marialopez@example.com</td>
+                      <td><span class="badge bg-warning text-dark">En riesgo</span></td>
+                      <td>
+                        <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- 🔷 Cargar menú lateral -->
+  <script>
+    fetch('menu-lateral.html')
+      .then(resp => resp.text())
+      .then(data => {
+        document.getElementById('menuLateral').innerHTML = data;
+      })
+      .catch(err => console.error('Error cargando menú lateral:', err));
+  </script>
+
+  <!-- 🔷 Cargar topbar -->
+  <script>
+    fetch('topbar.html')
+      .then(resp => resp.text())
+      .then(data => {
+        document.getElementById('topbarContainer').innerHTML = data;
+        const topbarHeight = document.getElementById('mainNav').offsetHeight;
+        document.getElementById('appContainer').style.paddingTop = topbarHeight + 'px';
+      })
+      .catch(err => console.error('Error cargando topbar:', err));
+  </script>
+
+  <script src="../javascrip.js"></script>
+
+</body>
+</html>
