@@ -69,7 +69,11 @@
                       <td><span class="badge bg-success">Activo</span></td>
                       <td>
                         <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+                        <button class="btn btn-sm btn-danger me-1"><i class="bi bi-trash-fill"></i></button>
+                        <!-- 🧾 Botón Ver Detalles -->
+                        <button class="btn btn-sm btn-info text-white" data-bs-toggle="modal" data-bs-target="#modalDetallesCliente">
+                          <i class="bi bi-file-earmark-text"></i>
+                        </button>
                       </td>
                     </tr>
                     <tr>
@@ -80,7 +84,11 @@
                       <td><span class="badge bg-warning text-dark">En riesgo</span></td>
                       <td>
                         <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+                        <button class="btn btn-sm btn-danger me-1"><i class="bi bi-trash-fill"></i></button>
+                        <!-- 🧾 Botón Ver Detalles -->
+                        <button class="btn btn-sm btn-info text-white" data-bs-toggle="modal" data-bs-target="#modalDetallesCliente">
+                          <i class="bi bi-file-earmark-text"></i>
+                        </button>
                       </td>
                     </tr>
                   </tbody>
@@ -93,6 +101,131 @@
     </div>
   </div>
 
+  <!-- 🔹 Modal Detalles del Cliente -->
+<div class="modal fade" id="modalDetallesCliente" tabindex="-1" aria-labelledby="modalDetallesClienteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- 🔷 ENCABEZADO -->
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="modalDetallesClienteLabel">
+          <i class="bi bi-person-lines-fill me-2"></i>Detalles del Cliente
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <!-- 🔷 CUERPO DEL MODAL -->
+      <div class="modal-body">
+
+        <!-- 🧍 Datos del Cliente -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-person-circle text-primary fs-5 me-2"></i>
+              <div>
+                <small>Nombre</small>
+                <p class="mb-0 fw-semibold">Juan Pérez</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-geo-alt-fill text-danger fs-5 me-2"></i>
+              <div>
+                <small>Dirección</small>
+                <p class="mb-0 fw-semibold">Calle Reforma #123, Cosamaloapan</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-hash text-warning fs-5 me-2"></i>
+              <div>
+                <small>Número de servicio</small>
+                <p class="mb-0 fw-semibold">00012345</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-telephone-fill text-success fs-5 me-2"></i>
+              <div>
+                <small>Teléfono</small>
+                <p class="mb-0 fw-semibold telefono">(229) 123-4567</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-wifi text-info fs-5 me-2"></i>
+              <div>
+                <small>Tipo de servicio</small>
+                <p class="mb-0 fw-semibold">Internet Hogar</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- 🗂 Casos recientes -->
+        <div class="mt-3">
+          <h6 class="fw-bold mb-3">
+            <i class="bi bi-clipboard2-check me-2 text-primary"></i>Casos recientes
+          </h6>
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle text-center">
+              <thead class="table-light">
+                <tr>
+                  <th><i class="bi bi-hash me-1"></i>Folio</th>
+                  <th><i class="bi bi-chat-left-text me-1"></i>Motivo</th>
+                  <th><i class="bi bi-person-badge me-1"></i>Atendido</th>
+                  <th><i class="bi bi-calendar-date me-1"></i>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>00123</td>
+                  <td>Falla en línea</td>
+                  <td>Ana Torres</td>
+                  <td>10/10/2025</td>
+                </tr>
+                <tr>
+                  <td>00111</td>
+                  <td>Problema en factura</td>
+                  <td>José Ramírez</td>
+                  <td>05/10/2025</td>
+                </tr>
+                <tr>
+                  <td>00098</td>
+                  <td>Cambio de plan</td>
+                  <td>María López</td>
+                  <td>01/10/2025</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 🔗 Enlace al historial -->
+          <div class="text-end mt-3">
+            <a href="#" class="btn btn-outline-info btn-sm">
+              <i class="bi bi-clock-history me-1"></i> Ver registro historial de casos
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+  <!-- Bootstrap y scripts -->
   <script src="../bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- 🔷 Cargar menú lateral -->

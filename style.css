@@ -312,3 +312,103 @@ body.dark-mode .badge.bg-danger {
 
 .mode-switch span.sun { color: #f4c542; }
 .mode-switch span.moon { color: #a5b1c2; }
+
+
+/* =========================================================
+   MODALES (Modo claro y oscuro)
+   ========================================================= */
+.modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* 🔹 En modo oscuro */
+body.dark-mode .modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer {
+  border-color: rgba(255,255,255,0.15);
+}
+
+body.dark-mode .modal-backdrop {
+  background-color: rgba(0,0,0,0.8);
+}
+
+
+/* Modal redondeado y sombra */
+#modalDetallesCliente .modal-content {
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Texto y datos del cliente */
+#modalDetallesCliente .modal-body p {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+#modalDetallesCliente .modal-body small {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Estilo especial para teléfono */
+#modalDetallesCliente .modal-body p.telefono {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+/* Íconos dentro del modal */
+#modalDetallesCliente .bi {
+  transition: color 0.3s;
+}
+
+/* Tabla de casos recientes */
+#modalDetallesCliente table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#modalDetallesCliente table th {
+  background-color: rgba(0,0,0,0.05);
+}
+
+#modalDetallesCliente table tbody tr:hover {
+  background-color: rgba(0,0,0,0.02);
+}
+
+/* Botón historial */
+#modalDetallesCliente .btn-outline-info {
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+#modalDetallesCliente .btn-outline-info:hover {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+}
