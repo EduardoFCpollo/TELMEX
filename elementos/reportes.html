@@ -83,6 +83,45 @@
           </div>
         </div>
 
+        <!-- 🔹 RESUMEN DE CASOS POR BAJA DE SERVICIO -->
+        <div class="card p-3 mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Resumen de Bajas de Servicio</h5>
+            <div class="d-flex align-items-center">
+              <input type="date" class="form-control form-control-sm me-2" id="fechaInicio">
+              <input type="date" class="form-control form-control-sm me-2" id="fechaFin">
+              <button class="btn btn-telmex btn-sm" id="aplicarRango">Aplicar</button>
+            </div>
+          </div>
+
+          <div class="row g-3" id="cardsBajas">
+            <div class="col-md-3">
+              <div class="card text-center p-3">
+                <h6>Mala calidad del servicio</h6>
+                <h3 class="text-primary" id="countMalaCalidad">0</h3>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-center p-3">
+                <h6>Competencia</h6>
+                <h3 class="text-success" id="countCompetencia">0</h3>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-center p-3">
+                <h6>Económico</h6>
+                <h3 class="text-warning text-dark" id="countEconomico">0</h3>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-center p-3">
+                <h6>Queja no atendida</h6>
+                <h3 class="text-danger" id="countQueja">0</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- 🔹 Tabla de reportes -->
         <div class="card p-3">
           <div class="d-flex justify-content-between align-items-center mb-3">

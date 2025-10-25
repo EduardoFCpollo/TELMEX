@@ -48,49 +48,70 @@
               </button>
             </div>
           </div>
-
-          <!-- Contenedor de filtros aplicados -->
           <div class="mt-3" id="filtrosAplicados"></div>
         </div>
 
-        <!-- 🔹 RESUMEN DE CASOS POR BAJA DE SERVICIO -->
+        <!-- 🔹 ATENCIÓN INMEDIATA (ahora arriba) -->
         <div class="card p-3 mb-4">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="mb-0">Resumen de Bajas de Servicio</h5>
-            <div class="d-flex align-items-center">
-              <input type="date" class="form-control form-control-sm me-2" id="fechaInicio">
-              <input type="date" class="form-control form-control-sm me-2" id="fechaFin">
-              <button class="btn btn-telmex btn-sm" id="aplicarRango">Aplicar</button>
-            </div>
+            <h5 class="mb-0 text-danger">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>Atención Inmediata
+            </h5>
+            <button class="btn btn-sm btn-outline-danger" id="actualizarAtencion">
+              <i class="bi bi-arrow-clockwise me-1"></i>Actualizar
+            </button>
           </div>
 
-          <div class="row g-3" id="cardsBajas">
-            <div class="col-md-3">
-              <div class="card text-center p-3">
-                <h6>Mala calidad del servicio</h6>
-                <h3 class="text-primary" id="countMalaCalidad">0</h3>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card text-center p-3">
-                <h6>Competencia</h6>
-                <h3 class="text-success" id="countCompetencia">0</h3>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card text-center p-3">
-                <h6>Económico</h6>
-                <h3 class="text-warning text-dark" id="countEconomico">0</h3>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card text-center p-3">
-                <h6>Queja no atendida</h6>
-                <h3 class="text-danger" id="countQueja">0</h3>
-              </div>
-            </div>
+          <p class="text-muted mb-3">
+            Casos que requieren seguimiento urgente por riesgo alto de baja o insatisfacción.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table align-middle table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Cliente</th>
+                  <th>Motivo</th>
+                  <th>Nivel de Riesgo</th>
+                  <th>Agente Asignado</th>
+                  <th>Última Actualización</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaAtencion">
+                <tr>
+                  <td>201</td>
+                  <td>Pedro Sánchez</td>
+                  <td>Queja no atendida</td>
+                  <td><span class="badge bg-danger">Alto</span></td>
+                  <td>Lucía Hernández</td>
+                  <td>2025-10-22</td>
+                  <td>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
+                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>202</td>
+                  <td>Ana Torres</td>
+                  <td>Mala calidad del servicio</td>
+                  <td><span class="badge bg-warning text-dark">Medio</span></td>
+                  <td>Jorge Ramírez</td>
+                  <td>2025-10-23</td>
+                  <td>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
+                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+
+        
 
         <!-- 🔹 TABLA DE CASOS -->
         <div class="card p-3">
@@ -100,7 +121,6 @@
               <small class="text-muted">Monitorea y gestiona los casos activos</small>
             </div>
           </div>
-
           <div class="table-responsive">
             <table class="table align-middle" id="tablaCasos">
               <thead>
@@ -123,15 +143,9 @@
                   <td><span class="badge bg-warning text-dark">En proceso</span></td>
                   <td>María Gómez</td>
                   <td>
-                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-primary me-1">
-                      <i class="bi bi-pencil-fill"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger">
-                      <i class="bi bi-trash-fill"></i>
-                    </button>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
+                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
                   </td>
                 </tr>
                 <tr>
@@ -142,15 +156,9 @@
                   <td><span class="badge bg-success">Resuelto</span></td>
                   <td>Carlos Ruiz</td>
                   <td>
-                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-primary me-1">
-                      <i class="bi bi-pencil-fill"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger">
-                      <i class="bi bi-trash-fill"></i>
-                    </button>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
+                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -168,7 +176,7 @@
       <div class="modal-content">
         <div class="modal-header bg-telmex text-white">
           <h5 class="modal-title" id="modalVerCasoLabel">Detalles del Caso</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <p><strong>Cliente:</strong> Juan Pérez</p>
@@ -185,45 +193,17 @@
     </div>
   </div>
 
-  <!-- 🔷 OFFCANVAS: Filtros -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFiltros" aria-labelledby="offcanvasFiltrosLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasFiltrosLabel">Filtros de Casos</h5>
-      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
-    </div>
-    <div class="offcanvas-body">
-      <div class="mb-3">
-        <label for="filtroMotivo" class="form-label">Selecciona un motivo</label>
-        <select id="filtroMotivo" class="form-select">
-          <option value="">-- Elegir motivo --</option>
-          <option value="mala calidad del servicio">Mala calidad del servicio</option>
-          <option value="económico">Económico</option>
-          <option value="competencia">Competencia</option>
-          <option value="defunción">Defunción</option>
-          <option value="queja no atendida">Queja no atendida</option>
-          <option value="cambio de domicilio">Cambio de domicilio</option>
-          <option value="cierre de negocio">Cierre de negocio</option>
-          <option value="folio de incidente">Folio de incidente</option>
-        </select>
-      </div>
-      <button id="aplicarFiltro" class="btn btn-telmex w-100">Aplicar filtro</button>
-    </div>
-  </div>
-
   <!-- JS Bootstrap -->
   <script src="../bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- 🔷 Cargar menú lateral -->
+  <!-- Cargar menú lateral -->
   <script>
     fetch('menu-lateral.html')
       .then(resp => resp.text())
-      .then(data => {
-        document.getElementById('menuLateral').innerHTML = data;
-      })
-      .catch(err => console.error('Error cargando menú lateral:', err));
+      .then(data => document.getElementById('menuLateral').innerHTML = data);
   </script>
 
-  <!-- 🔷 Cargar topbar y ajustar padding -->
+  <!-- Cargar topbar -->
   <script>
     fetch('topbar.html')
       .then(resp => resp.text())
@@ -231,29 +211,25 @@
         document.getElementById('topbarContainer').innerHTML = data;
         const topbarHeight = document.getElementById('mainNav').offsetHeight;
         document.getElementById('appContainer').style.paddingTop = topbarHeight + 'px';
-      })
-      .catch(err => console.error('Error cargando topbar:', err));
+      });
   </script>
 
-  <!-- 🔹 JS: Aplicar filtros -->
+  <!-- JS filtros -->
   <script>
     const aplicarFiltroBtn = document.getElementById('aplicarFiltro');
     const filtrosAplicados = document.getElementById('filtrosAplicados');
     const filtroMotivoSelect = document.getElementById('filtroMotivo');
-
-    aplicarFiltroBtn.addEventListener('click', () => {
+    aplicarFiltroBtn?.addEventListener('click', () => {
       const valorFiltro = filtroMotivoSelect.value;
       filtrosAplicados.textContent = valorFiltro ? `Motivo: ${valorFiltro}` : '';
-      // Aquí puedes agregar lógica para filtrar la tabla según el motivo seleccionado
       const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasFiltros'));
-      offcanvas.hide();
+      offcanvas?.hide();
     });
   </script>
 
-  <!-- 🔹 JS: actualizar resumen de bajas (simulado) -->
+  <!-- JS resumen de bajas -->
   <script>
-    const aplicarRango = document.getElementById('aplicarRango');
-    aplicarRango.addEventListener('click', () => {
+    document.getElementById('aplicarRango')?.addEventListener('click', () => {
       document.getElementById('countMalaCalidad').textContent = Math.floor(Math.random()*20 + 1);
       document.getElementById('countCompetencia').textContent = Math.floor(Math.random()*10 + 1);
       document.getElementById('countEconomico').textContent = Math.floor(Math.random()*15 + 1);
@@ -261,9 +237,60 @@
     });
   </script>
 
-  <!-- JS global -->
-  <script src="../javascrip.js"></script>
+  <!-- JS atención inmediata -->
+  <script>
+    const actualizarAtencion = document.getElementById('actualizarAtencion');
+    const tablaAtencion = document.getElementById('tablaAtencion');
 
+    actualizarAtencion.addEventListener('click', () => {
+      const riesgos = ['Bajo', 'Medio', 'Alto'];
+      const colores = {'Bajo':'bg-success','Medio':'bg-warning text-dark','Alto':'bg-danger'};
+      const nombres = ['Pedro Sánchez','Ana Torres','Luis Castillo','María Ortega','Carmen Díaz'];
+      const motivos = ['Mala calidad del servicio','Queja no atendida','Competencia','Económico'];
+      const agentes = ['Lucía Hernández','Jorge Ramírez','Carlos Ruiz'];
+
+      let casos = [];
+
+      for (let i = 0; i < 6; i++) {
+        const riesgo = riesgos[Math.floor(Math.random() * riesgos.length)];
+        const nombre = nombres[Math.floor(Math.random() * nombres.length)];
+        const motivo = motivos[Math.floor(Math.random() * motivos.length)];
+        const agente = agentes[Math.floor(Math.random() * agentes.length)];
+        const fecha = new Date().toISOString().split('T')[0];
+        const reincidente = Math.random() < 0.3;
+
+        casos.push({id: 200+i, nombre, motivo, riesgo, agente, fecha, reincidente});
+      }
+
+      const reincidentes = casos.filter(c => c.reincidente);
+      const normales = casos.filter(c => !c.reincidente);
+
+      tablaAtencion.innerHTML = '';
+
+      const renderCaso = c => {
+        let marcador = c.reincidente ? ' - Reincidente' : '';
+        return `
+          <tr>
+            <td>${c.id}</td>
+            <td>${c.nombre}</td>
+            <td>${c.motivo}</td>
+            <td><span class="badge ${colores[c.riesgo]}">${c.riesgo}${marcador}</span></td>
+            <td>${c.agente}</td>
+            <td>${c.fecha}</td>
+            <td>
+              <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+              <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
+              <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+            </td>
+          </tr>`;
+      }
+
+      reincidentes.forEach(c => tablaAtencion.innerHTML += renderCaso(c));
+      normales.forEach(c => tablaAtencion.innerHTML += renderCaso(c));
+    });
+  </script>
+
+  <script src="../javascrip.js"></script>
 </body>
 </html>
 
