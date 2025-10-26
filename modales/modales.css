@@ -1,0 +1,15 @@
+/* Modal de Casos */
+#M_casos .modal-content {
+  border-radius: 15px;
+  border: 2px solid #0078AA;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+#M_casos .modal-header {
+  background-color: #0078AA;
+  color: white;
+}
+
+#M_casos .modal-footer {
+  background-color: #f8f9fa;
+}

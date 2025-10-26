@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Historial de Casos | Telmex</title>
+  <link href="../bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- CSS de modales -->
+  <link href="../modales/modales.css" rel="stylesheet">
+</head>
+
+<body class="historial">
+
+  <!-- 🔷 TOPBAR -->
+  <div id="topbarContainer"></div>
+
+  <!-- CONTENEDOR GENERAL -->
+  <div id="appContainer" class="container-fluid">
+    <div class="row">
+      
+      <!-- SIDEBAR -->
+      <aside class="col-md-2 sidebar d-flex flex-column" id="menuLateral"></aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="col-md-10 p-4" id="mainContent">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="m-0">
+            <i class="bi bi-clock-history text-info me-2"></i>Historial de Casos
+          </h2>
+          <a href="../clientes/clientes.html" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>Volver a Clientes
+          </a>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="card shadow-sm mb-4 p-3">
+          <div class="row g-3 align-items-center">
+            <div class="col-md-4">
+              <label for="buscarCaso" class="form-label mb-1">Buscar por folio o cliente</label>
+              <input type="text" id="buscarCaso" class="form-control" placeholder="Ej. 00123 o Juan Pérez">
+            </div>
+            <div class="col-md-3">
+              <label for="filtroFecha" class="form-label mb-1">Fecha</label>
+              <input type="date" id="filtroFecha" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label for="filtroAgente" class="form-label mb-1">Agente</label>
+              <select id="filtroAgente" class="form-select">
+                <option value="">Todos</option>
+                <option>Ana Torres</option>
+                <option>José Ramírez</option>
+                <option>María López</option>
+              </select>
+            </div>
+            <div class="col-md-2 text-end">
+              <button class="btn btn-primary mt-3 w-100">
+                <i class="bi bi-funnel me-1"></i>Filtrar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLA DE HISTORIAL -->
+        <div class="card shadow-sm p-3">
+          <h5 class="mb-3"><i class="bi bi-journal-text me-2"></i>Registros recientes</h5>
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle text-center">
+              <thead class="table-light">
+                <tr>
+                  <th>Folio</th>
+                  <th>Cliente</th>
+                  <th>Motivo</th>
+                  <th>Atendido por</th>
+                  <th>Fecha</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>00123</td>
+                  <td>Juan Pérez</td>
+                  <td>Falla en línea</td>
+                  <td>Ana Torres</td>
+                  <td>10/10/2025</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#M_casos">
+                      <i class="bi bi-eye me-1"></i>Ver detalles
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>00111</td>
+                  <td>María López</td>
+                  <td>Problema en factura</td>
+                  <td>José Ramírez</td>
+                  <td>05/10/2025</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#M_casos">
+                      <i class="bi bi-eye me-1"></i>Ver detalles
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>00098</td>
+                  <td>Pedro García</td>
+                  <td>Cambio de plan</td>
+                  <td>María López</td>
+                  <td>01/10/2025</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#M_casos">
+                      <i class="bi bi-eye me-1"></i>Ver detalles
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Contenedor para cargar el modal -->
+  <div id="contenedorModal"></div>
+
+  <!-- Bootstrap y scripts -->
+  <script src="../bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- 🔷 Cargar menú lateral -->
+  <script>
+    fetch('menu-lateral.html')
+      .then(resp => resp.text())
+      .then(data => document.getElementById('menuLateral').innerHTML = data)
+      .catch(err => console.error('Error cargando menú lateral:', err));
+  </script>
+
+  <!-- 🔷 Cargar topbar -->
+  <script>
+    fetch('topbar.html')
+      .then(resp => resp.text())
+      .then(data => {
+        document.getElementById('topbarContainer').innerHTML = data;
+        const topbarHeight = document.getElementById('mainNav').offsetHeight;
+        document.getElementById('appContainer').style.paddingTop = topbarHeight + 'px';
+      })
+      .catch(err => console.error('Error cargando topbar:', err));
+  </script>
+
+  <!-- 🔷 Cargar modal desde carpeta modales -->
+  <script>
+    fetch('../modales/modales.html')
+      .then(resp => resp.text())
+      .then(html => {
+        document.getElementById('contenedorModal').innerHTML = html;
+        // Cargar JS específico del modal si existe
+        const script = document.createElement('script');
+        script.src = '../modales/modales.js';
+        document.body.appendChild(script);
+      })
+      .catch(err => console.error('Error cargando modal:', err));
+  </script>
+
+  <!-- JS propio -->
+  <script src="../javascrip.js"></script>
+
+</body>
+</html>
+

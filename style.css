@@ -412,3 +412,25 @@ body.dark-mode .modal-backdrop {
   background-color: var(--btn-bg);
   color: var(--btn-text);
 }
+
+
+/* 🔹 Sobrescribir fondos y texto de Bootstrap para modo oscuro */
+body.dark-mode .bg-light,
+body.dark-mode .bg-white {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Para bordes y contenedores con padding */
+body.dark-mode .border {
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+/* Para bloques con rounded y padding (p-3, rounded-3, etc.) */
+body.dark-mode .p-3.rounded-3 {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    transition: background-color 0.3s, color 0.3s;
+}
