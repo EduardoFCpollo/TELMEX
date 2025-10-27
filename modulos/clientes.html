@@ -201,7 +201,7 @@
             </div>
 
             <div class="text-end mt-3">
-              <a href="/elementos/historialCasos.html" class="btn btn-outline-info btn-sm">
+              <a href="/modulos/historialCasos.html" class="btn btn-outline-info btn-sm">
                 <i class="bi bi-clock-history me-1"></i> Ver registro historial de casos
               </a>
             </div>
@@ -306,7 +306,7 @@
 
   <!-- 🔷 Cargar menú lateral -->
   <script>
-    fetch('menu-lateral.html')
+    fetch('../menusFijos/menu-lateral.html')
       .then(resp => resp.text())
       .then(data => {
         document.getElementById('menuLateral').innerHTML = data;
@@ -316,7 +316,7 @@
 
   <!-- 🔷 Cargar topbar -->
   <script>
-    fetch('topbar.html')
+    fetch('../menusFijos/topbar.html')
       .then(resp => resp.text())
       .then(data => {
         document.getElementById('topbarContainer').innerHTML = data;

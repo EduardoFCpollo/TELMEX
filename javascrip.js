@@ -3,7 +3,6 @@ function initSidebar() {
   const sidebarLinks = document.querySelectorAll('.sidebar a');
 
   sidebarLinks.forEach(link => {
-    // Ignorar el enlace "Inicio"
     if (link.id === 'inicioLink') return;
 
     link.addEventListener('click', () => {
@@ -12,7 +11,6 @@ function initSidebar() {
     });
   });
 
-  // ---------------- Marcar automáticamente según la página ----------------
   const paginaActual = window.location.pathname.split('/').pop();
   sidebarLinks.forEach(link => {
     const href = link.getAttribute('href').split('/').pop();
@@ -29,23 +27,30 @@ function initDarkMode() {
 
   if (!switchOscuro) return;
 
+  // 🔹 Aplicar dark-mode desde localStorage SIN animación
+  document.body.classList.remove('transition-dark-mode');
   if (localStorage.getItem('modoOscuro') === 'true') {
     document.body.classList.add('dark-mode');
     switchOscuro.checked = true;
   }
 
+  // 🔹 Cambios manuales con animación
   switchOscuro.addEventListener('change', () => {
+    document.body.classList.add('transition-dark-mode');
     document.body.classList.toggle('dark-mode', switchOscuro.checked);
     localStorage.setItem('modoOscuro', switchOscuro.checked);
+
+    setTimeout(() => {
+      document.body.classList.remove('transition-dark-mode');
+    }, 400);
   });
 
+  // 🔹 Logout
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
       document.body.classList.remove('dark-mode');
-      localStorage.setItem('modoOscuro','false');
-
-      // Calcula ruta relativa a index.html
-      const basePath = window.location.pathname.includes('/elementos/') ? '../' : '';
+      localStorage.setItem('modoOscuro', 'false');
+      const basePath = window.location.pathname.includes('/modulos/') ? '../' : '';
       window.location.href = basePath + 'index.html';
     });
   }
@@ -67,10 +72,14 @@ function initApp() {
   return false;
 }
 
-// ---------------- Observer ----------------
+// ---------------- Observer para inicializar app ----------------
 const observer = new MutationObserver(() => {
   if (initApp()) observer.disconnect();
 });
 
 observer.observe(document.body, { childList: true, subtree: true });
-// ---------------- Iniciar inmediatamente si ya está cargado ----------------                                                
+
+// ---------------- Aplicar modo oscuro ANTES de pintar la página ----------------
+if (localStorage.getItem('modoOscuro') === 'true') {
+  document.body.classList.add('dark-mode'); // ⚠ body, no html
+}

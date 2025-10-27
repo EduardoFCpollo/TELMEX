@@ -103,7 +103,7 @@
 
   <!-- 🔷 Cargar menú lateral -->
   <script>
-    fetch('menu-lateral.html')
+    fetch('../menusFijos/menu-lateral.html')
       .then(resp => resp.text())
       .then(data => {
         document.getElementById('menuLateral').innerHTML = data;
@@ -113,7 +113,7 @@
 
   <!-- 🔷 Cargar topbar -->
   <script>
-    fetch('topbar.html')
+    fetch('../menusFijos/topbar.html')
       .then(resp => resp.text())
       .then(data => {
         document.getElementById('topbarContainer').innerHTML = data;

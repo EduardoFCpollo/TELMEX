@@ -8,7 +8,7 @@
   <link href="../style.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <!-- CSS de modales -->
-  <link href="../modales/modales.css" rel="stylesheet">
+  <link href="../elementos/modales/modales.css" rel="stylesheet">
 </head>
 
 <body class="historial">
@@ -29,7 +29,7 @@
           <h2 class="m-0">
             <i class="bi bi-clock-history text-info me-2"></i>Historial de Casos
           </h2>
-          <a href="../clientes/clientes.html" class="btn btn-outline-secondary">
+          <a href="../modulos/clientes.html" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left me-2"></i>Volver a Clientes
           </a>
         </div>
@@ -130,7 +130,7 @@
 
   <!-- 🔷 Cargar menú lateral -->
   <script>
-    fetch('menu-lateral.html')
+    fetch('../menusFijos/menu-lateral.html')
       .then(resp => resp.text())
       .then(data => document.getElementById('menuLateral').innerHTML = data)
       .catch(err => console.error('Error cargando menú lateral:', err));
@@ -138,7 +138,7 @@
 
   <!-- 🔷 Cargar topbar -->
   <script>
-    fetch('topbar.html')
+    fetch('../menusFijos/topbar.html')
       .then(resp => resp.text())
       .then(data => {
         document.getElementById('topbarContainer').innerHTML = data;
@@ -150,13 +150,13 @@
 
   <!-- 🔷 Cargar modal desde carpeta modales -->
   <script>
-    fetch('../modales/modales.html')
+    fetch('../elementos/modales/modales.html')
       .then(resp => resp.text())
       .then(html => {
         document.getElementById('contenedorModal').innerHTML = html;
         // Cargar JS específico del modal si existe
         const script = document.createElement('script');
-        script.src = '../modales/modales.js';
+        script.src = '../elementos/modales/modales.js';
         document.body.appendChild(script);
       })
       .catch(err => console.error('Error cargando modal:', err));

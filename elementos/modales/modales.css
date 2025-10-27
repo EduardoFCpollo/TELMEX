@@ -13,3 +13,17 @@
 #M_casos .modal-footer {
   background-color: #f8f9fa;
 }
+
+
+.badge.bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
