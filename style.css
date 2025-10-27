@@ -61,6 +61,14 @@ h3, h5 {
   font-weight: 500;
 }
 
+label {
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+body.dark-mode label {
+  color: var(--text-color);
+}
 /* =========================================================
    ENCABEZADOS (h1 - h6)
    ========================================================= */
