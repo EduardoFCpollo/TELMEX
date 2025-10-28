@@ -88,7 +88,7 @@
                   <td>Lucía Hernández</td>
                   <td>2025-10-22</td>
                   <td>
-                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal"><i class="bi bi-eye"></i></button>
                     <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
                     <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
                   </td>
@@ -101,7 +101,7 @@
                   <td>Jorge Ramírez</td>
                   <td>2025-10-23</td>
                   <td>
-                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal"><i class="bi bi-eye"></i></button>
                     <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
                     <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
                   </td>
@@ -110,8 +110,6 @@
             </table>
           </div>
         </div>
-
-        
 
         <!-- 🔹 TABLA DE CASOS -->
         <div class="card p-3">
@@ -143,7 +141,7 @@
                   <td><span class="badge bg-warning text-dark">En proceso</span></td>
                   <td>María Gómez</td>
                   <td>
-                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal"><i class="bi bi-eye"></i></button>
                     <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
                     <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
                   </td>
@@ -156,7 +154,7 @@
                   <td><span class="badge bg-success">Resuelto</span></td>
                   <td>Carlos Ruiz</td>
                   <td>
-                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal"><i class="bi bi-eye"></i></button>
                     <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
                     <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
                   </td>
@@ -170,28 +168,8 @@
     </div>
   </div>
 
-  <!-- 🔷 MODAL: Ver Caso -->
-  <div class="modal fade" id="modalVerCaso" tabindex="-1" aria-labelledby="modalVerCasoLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-telmex text-white">
-          <h5 class="modal-title" id="modalVerCasoLabel">Detalles del Caso</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p><strong>Cliente:</strong> Juan Pérez</p>
-          <p><strong>Motivo:</strong> Mala calidad del servicio</p>
-          <p><strong>Descripción:</strong> El cliente reporta fallas frecuentes en su conexión.</p>
-          <p><strong>Fecha:</strong> 2025-10-16</p>
-          <p><strong>Estado:</strong> En proceso</p>
-          <p><strong>Agente:</strong> María Gómez</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- 📦 Contenedor para insertar el modal centralizado -->
+  <div id="contenedorModales"></div>
 
   <!-- JS Bootstrap -->
   <script src="../bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
@@ -278,7 +256,7 @@
             <td>${c.agente}</td>
             <td>${c.fecha}</td>
             <td>
-              <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal" data-bs-target="#modalVerCaso"><i class="bi bi-eye"></i></button>
+              <button class="btn btn-sm btn-info me-1" data-bs-toggle="modal"><i class="bi bi-eye"></i></button>
               <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
               <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
             </td>
@@ -290,7 +268,53 @@
     });
   </script>
 
+  <!-- Cargar modal centralizado y forzar que todos los "ojos" lo usen -->
+  <script>
+    // ruta al archivo que contiene tu modal centralizado (#M_casos)
+    const MODALES_PATH = '../elementos/modales/modales.html';
+
+    // función que actualiza todos los botones que contienen el icono .bi-eye
+    function bindAllEyeButtonsToCentralModal() {
+      // selecciona botones que contienen el icono .bi-eye (actuales en DOM)
+      document.querySelectorAll('button').forEach(btn => {
+        if (btn.querySelector('.bi-eye')) {
+          // forzamos que ese botón abra #M_casos
+          btn.setAttribute('data-bs-toggle', 'modal');
+          btn.setAttribute('data-bs-target', '#M_casos');
+        }
+      });
+    }
+
+    // carga el archivo de modales e inserta en el contenedor
+    fetch(MODALES_PATH)
+      .then(resp => {
+        if (!resp.ok) throw new Error('No se pudo cargar modales: ' + resp.status);
+        return resp.text();
+      })
+      .then(html => {
+        document.getElementById('contenedorModales').innerHTML = html;
+
+        // una vez cargado el modal, vincula los botones actuales
+        bindAllEyeButtonsToCentralModal();
+
+        // observar cambios en el DOM para actualizar botones dinámicos que se añadan después
+        const observer = new MutationObserver(mutations => {
+          for (const m of mutations) {
+            if (m.addedNodes && m.addedNodes.length) {
+              // re-vincular en caso de que se añadieran filas/botones nuevos
+              bindAllEyeButtonsToCentralModal();
+            }
+          }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+
+      })
+      .catch(err => {
+        console.error('Error cargando modales centralizados:', err);
+      });
+  </script>
+
   <script src="../javascrip.js"></script>
 </body>
 </html>
-
