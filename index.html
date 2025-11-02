@@ -27,29 +27,29 @@
 
   <script src="bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
   <script>
-  document.getElementById('formLogin').addEventListener('submit', function(e) {
-    e.preventDefault();
+    document.getElementById('formLogin').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-    const datos = new FormData(this);
+      const datos = new FormData(this);
 
-    // 👇 aquí se corrige la ruta
-    fetch('conexiones/login.php', {
-      method: 'POST',
-      body: datos
-    })
-    .then(res => res.text())
-    .then(data => {
-      if (data.trim() === 'OK') {
-        window.location.href = 'modulos/dashboard.html';
-      } else {
-        alert('Usuario o contraseña incorrectos');
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      alert('Error al conectar con el servidor');
+      fetch('conexiones/login.php', {
+        method: 'POST',
+        body: datos
+      })
+      .then(res => res.json()) // parseamos la respuesta como JSON
+      .then(data => {
+        if (data.status === 'OK') {
+          // Login exitoso: redirige al dashboard
+          window.location.href = 'modulos/dashboard.html';
+        } else {
+          alert('Usuario o contraseña incorrectos');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Error al conectar con el servidor');
+      });
     });
-  });
   </script>
 </body>
 </html>

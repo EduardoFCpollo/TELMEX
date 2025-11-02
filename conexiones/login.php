@@ -1,17 +1,20 @@
 <?php
-include("conexion.php"); // misma carpeta, así está bien
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $userID = $_POST['userID'];
-  $contrasena = $_POST['contrasena'];
+header('Content-Type: application/json');
 
-  $query = "SELECT * FROM usuarios WHERE userID = '$userID' AND contrasena = '$contrasena'";
-  $result = $conn->query($query);
+session_start(); // ✅ Solo aquí
+require_once __DIR__ . '/../controller/UsuarioController.php';
+require_once __DIR__ . '/conexion.php';
 
-  if ($result->num_rows > 0) {
-    echo "OK";
-  } else {
-    echo "ERROR";
-  }
+$userID = $_POST['userID'] ?? '';
+$contrasena = $_POST['contrasena'] ?? '';
+
+$ok = UsuarioController::login($userID, $contrasena, $conn);
+
+if ($ok) {
+    echo json_encode(['status' => 'OK']);
+} else {
+    echo json_encode(['status' => 'ERROR']);
 }
-?>

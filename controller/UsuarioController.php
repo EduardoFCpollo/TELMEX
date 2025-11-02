@@ -1,59 +1,44 @@
 <?php
-session_start(); // Siempre al inicio
-
-require_once("../entidades/Usuario.php");
+// NO session_start() aquí
+require_once __DIR__ . '/../entidad/Usuario.php';
 
 class UsuarioController {
 
-    /**
-     * Devuelve el nombre del usuario actual en sesión
-     * Si no hay usuario, devuelve 'Invitado'
-     */
+    public static function login($userID, $contrasena, $conn) {
+        $userID = trim($conn->real_escape_string($userID));
+        $contrasena = trim($conn->real_escape_string($contrasena));
+
+        $query = "SELECT * FROM usuarios WHERE TRIM(userID) = '$userID' LIMIT 1";
+        $result = $conn->query($query);
+
+        if (!$result) {
+            die("Error SQL: " . $conn->error);
+        }
+
+        if ($result->num_rows === 0) {
+            return false;
+        }
+
+        $usuario = $result->fetch_assoc();
+
+        if (trim($usuario['contrasena']) !== $contrasena) {
+            return false;
+        }
+
+        // Guardar en sesión
+        $_SESSION['userID'] = trim($usuario['userID']);
+        $_SESSION['nombre'] = $usuario['nombre'];
+        $_SESSION['rol'] = $usuario['rol'];
+
+        return true;
+    }
+
     public static function getNombre() {
-        if(isset($_SESSION['userID'])) {
-            return $_SESSION['nombre'] ?? 'Invitado';
-        }
-        return 'Invitado';
+        return $_SESSION['nombre'] ?? 'Invitado';
     }
 
-    /**
-     * Cierra la sesión actual
-     */
     public static function logout() {
-        // Limpiar todas las variables de sesión
-        $_SESSION = [];
-
-        // Destruir la sesión
-        if(session_status() === PHP_SESSION_ACTIVE){
-            session_destroy();
-        }
-    }
-
-    /**
-     * Inicia sesión con un usuario (simulado para ejemplo)
-     * $usuarioData: array con los datos del usuario
-     */
-    public static function login($usuarioData) {
-        if(!empty($usuarioData) && isset($usuarioData['userID'])) {
-            $_SESSION['userID'] = $usuarioData['userID'];
-            $_SESSION['nombre'] = $usuarioData['nombre'] ?? 'Invitado';
-            $_SESSION['rol'] = $usuarioData['rol'] ?? 'AGENTE';
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Devuelve el usuario completo en sesión como objeto Usuario
-     */
-    public static function getUsuario() {
-        if(isset($_SESSION['userID'])) {
-            return new Usuario([
-                'userID' => $_SESSION['userID'],
-                'nombre' => $_SESSION['nombre'] ?? 'Invitado',
-                'rol' => $_SESSION['rol'] ?? 'AGENTE'
-            ]);
-        }
-        return null;
+        session_unset();
+        session_destroy();
     }
 }
