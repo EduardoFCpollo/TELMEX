@@ -24,14 +24,42 @@ class ClienteController {
     }
 }
 
-// Si se accede directamente desde fetch o navegador
-if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
+// Muestra errores para depurar
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// ✅ Si se llama con ?accion=listar
+if (isset($_GET['accion']) && $_GET['accion'] === 'listar') {
     header('Content-Type: application/json; charset=utf-8');
 
     $controller = new ClienteController($conn);
     $clientes = $controller->obtenerClientes();
 
-    echo json_encode($clientes, JSON_UNESCAPED_UNICODE);
+    // Si no hay resultados, devolver arreglo vacío
+    if (empty($clientes)) {
+        echo json_encode([]);
+        $conn->close();
+        exit;
+    }
+
+    $clientesArray = array_map(function($cliente) {
+        $estadoLimpio = ucfirst(strtolower(trim($cliente->estatus ?? 'Desconocido')));
+
+        return [
+            'idCliente'  => $cliente->N_Servicio,
+            'nombre'     => $cliente->nombre,
+            'telefono'   => $cliente->telefono,
+            'email'      => $cliente->correo,
+            'estado'     => $estadoLimpio,
+            'direccion'  => $cliente->direccion,
+            'f_contrato' => $cliente->f_contrato
+        ];
+    }, $clientes);
+
+    echo json_encode($clientesArray, JSON_UNESCAPED_UNICODE);
     $conn->close();
+    exit;
 }
+
 ?>
+

@@ -5,3 +5,85 @@
   background-color: #0072ce;
   color: #fff;
 }
+
+
+/* Control general del ancho de la tabla */
+.table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Celdas con texto largo: recorte con puntos suspensivos */
+.table th,
+.table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+/* Definimos anchos fijos por columna */
+.table th:nth-child(1),
+.table td:nth-child(1) {
+  width: 110px; /* ID Servicio */
+}
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  width: 200px; /* Nombre */
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 140px; /* Teléfono */
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 200px; /* Email */
+}
+
+.table th:nth-child(5),
+.table td:nth-child(5) {
+  width: 120px; /* Estado */
+}
+
+.table th:nth-child(6),
+.table td:nth-child(6) {
+  width: 130px; /* Acciones */
+}
+
+/* Evita que los botones se encimen */
+.table td button {
+  min-width: 34px;
+  margin: 2px;
+}
+
+/* Hover suave */
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Botón Telmex */
+.btn-telmex {
+  background-color: #0072ce;
+  color: #fff;
+}
+
+.btn-telmex:hover {
+  background-color: #005fa3;
+  color: #fff;
+}
+
+/* Evitar recorte en la columna de acciones */
+.table td:last-child {
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+/* Espaciado y consistencia en los botones */
+.table td button {
+  min-width: 36px;
+  margin: 2px;
+}
